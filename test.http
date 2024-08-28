@@ -1,0 +1,13 @@
+GET http://localhost:4004/CatalogService/MemberMaster
+
+###
+POST http://localhost:4004/CatalogService/MemberMaster
+Content-Type: application/json
+
+{
+      "memberName": "Sourit Chakraborty",
+      "phoneNo" : "+91 8777696112",
+      "email": "abcd@abc.com",
+      "dob": "1995-11-13",
+      "gender": ""
+}
