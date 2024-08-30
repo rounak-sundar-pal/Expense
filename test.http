@@ -11,3 +11,11 @@ Content-Type: application/json
       "dob": "1995-11-13",
       "gender": ""
 }
+
+### Boost Testing
+POST http://localhost:4004/CatalogService/MemberMaster('02BD2137-0890-1EEA-A6C2-BB55C19787FB')/CatalogService.boost
+Content-Type: application/json
+
+{
+
+}

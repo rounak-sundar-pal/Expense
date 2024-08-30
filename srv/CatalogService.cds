@@ -20,6 +20,9 @@ service CatalogService @(path: '/CatalogService') {
     entity Category            as projection on master.category;
     entity TripMembers         as projection on master.trip_members;
     entity MemberPayment       as projection on transaction.member_payment;
-    entity MemberExpense       as projection on transaction.member_expense;
+    entity MemberExpense       as projection on transaction.member_expense{
+        *,
+        member_expense_contributer : redirected to MemberExpenseContri
+    };
     entity MemberExpenseContri as projection on transaction.member_expense_contributer;
 }

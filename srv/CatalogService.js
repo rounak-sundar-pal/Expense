@@ -31,5 +31,19 @@ module.exports = cds.service.impl( async function () {
 
     });
 
+    this.on('boost' , async(req,res) => {
+        try {
+            const ID = req.params[0];
+            console.log("Member Master UUID"+ ID + "Gender will be changed to F");
+            const tx = cds.tx(req);
+            await tx.update(MemberMaster).where({ID : ID}).with({
+                gender : 'F'
+            });
+            return "Boost was successfull";
+        } catch (error) {
+            return "Error" + error.toString();
+        }
+    })
+
     
 })
