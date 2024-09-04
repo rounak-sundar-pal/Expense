@@ -1,4 +1,4 @@
-using {tripin.db.ValueHelp} from '../db/ValueHelp';
+using {trippin.db.ValueHelp} from '../db/ValueHelp';
 
 
 service ValueHelpService @(path: '/ValueHelpService') {

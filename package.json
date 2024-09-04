@@ -12,9 +12,14 @@
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.6",
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@sap/ux-specification": "^1.120.17"
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "watch-tripdetails": "cds watch --open tripdetails/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/tripdetails"
+  ]
 }

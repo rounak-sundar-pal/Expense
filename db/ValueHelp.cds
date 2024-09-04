@@ -1,6 +1,6 @@
-namespace tripin.db;
+namespace trippin.db;
 
-using {tripin.db.master} from './datamodel.cds';
+using {trippin.db.master} from './datamodel.cds';
 
 context ValueHelp {
     define view TripVH as

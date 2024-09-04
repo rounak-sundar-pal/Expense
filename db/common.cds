@@ -1,4 +1,4 @@
-namespace tripin.common;
+namespace trippin.common;
 
 using {Currency} from '@sap/cds/common';
 

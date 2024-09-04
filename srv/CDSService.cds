@@ -1,4 +1,4 @@
-using {tripin.db.CDSViews} from '../db/CDSViews';
+using {trippin.db.CDSViews} from '../db/CDSViews';
 
 service CDSService @(path: '/CDSService') {
     @readonly
@@ -8,7 +8,9 @@ service CDSService @(path: '/CDSService') {
     @readonly
     entity TripExpense        as projection on CDSViews.TripExpense;
     @readonly
-    entity MemberPaymentTotal as projection on CDSViews.MermberPaymentTotal;
+    entity MemberPaymentTotal as projection on CDSViews.MemberPaymentTotal;
     @readonly
     entity MemberExpenseTotal as projection on CDSViews.MemberExpenseTotal;
+    // @readonly
+    // entity MemberBalance as projection on CDSViews.MemberBalance;
 }

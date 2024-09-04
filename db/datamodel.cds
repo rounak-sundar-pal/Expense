@@ -1,11 +1,11 @@
-namespace tripin.db;
+namespace trippin.db;
 
 using {
     cuid,
     managed
 } from '@sap/cds/common';
 
-using {tripin.common} from './common';
+using {trippin.common} from './common';
 
 
 context master {
