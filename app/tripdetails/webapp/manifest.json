@@ -100,7 +100,7 @@
       "config": {
         "flexibleColumnLayout": {
           "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
-          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+          "defaultThreeColumnLayoutType": "ThreeColumnsEndExpanded"
         },
         "routerClass": "sap.f.routing.Router"
       },

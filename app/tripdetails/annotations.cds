@@ -1,16 +1,26 @@
 using CatalogService as service from '../../srv/CatalogService';
+using {ValueHelpService} from '../../srv/ValueHelpService';
+
+// annotate service.TripMaster with {
+//     ID@(
+//         Comm
+//     )
+// } ;
+
 
 annotate service.TripMaster with @(
-    UI.SelectionFields           : [
-        tripId,
+    UI.TextArrangement       : #TextOnly,
+    cds.odata.valuelist,
+    UI.SelectionFields       : [
+        tripno,
         month,
         year,
         location,
     ],
-    UI.LineItem                  : [
+    UI.LineItem              : [
         {
             $Type: 'UI.DataField',
-            Value: tripId,
+            Value: tripno,
         },
         {
             $Type: 'UI.DataField',
@@ -29,30 +39,30 @@ annotate service.TripMaster with @(
             Value: location,
         },
     ],
-    UI.HeaderInfo : {
-        $Type : 'UI.HeaderInfoType',
-        TypeName : '{i18n>TripDetail}',
-        TypeNamePlural : '{i18n>TripDetails}',
-        Title : {
-            Label : '{i18n>TripID}',
-            Value : tripId
+    UI.HeaderInfo            : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : '{i18n>TripDetail}',
+        TypeNamePlural: '{i18n>TripDetails}',
+        Title         : {
+            Label: '{i18n>TripNo}',
+            Value: tripno
         },
-        Description : {
-            Label : '{i18n>description}',
-            Value : description
+        Description   : {
+            Label: '{i18n>description}',
+            Value: description
         },
-        ImageUrl : 'https://oddessemania.in/wp-content/uploads/2023/08/Wei-sawding-oddessemabnia-1024x768.jpg'
+        ImageUrl      : 'https://oddessemania.in/wp-content/uploads/2023/08/Wei-sawding-oddessemabnia-1024x768.jpg'
     },
-    UI.Facets : [
+    UI.Facets                : [
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Trip Details',
-            Target : ![@UI.FieldGroup#HeaderInfo]
+            Target: ![@UI.FieldGroup#HeaderInfo]
         },
         {
             $Type : 'UI.ReferenceFacet',
             Label : 'Trip Members',
-            Target : 'trip_members/@UI.LineItem',
+            Target: 'trip_members/@UI.LineItem',
         },
     ],
 
@@ -61,7 +71,7 @@ annotate service.TripMaster with @(
         Data : [
             {
                 $Type: 'UI.DataField',
-                Value: tripId,
+                Value: tripno,
             },
             {
                 $Type: 'UI.DataField',
@@ -86,66 +96,158 @@ annotate service.TripMaster with @(
             {
                 $Type: 'UI.DataField',
                 Value: itinerary,
-            },            
+            },
         ],
     }
-    
-);
-annotate service.TripMembers with @(
-    UI:{
-        LineItem  : [
-            {
-                $Type : 'UI.DataField',
-                Value : tripId.tripId,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : memberId.memberName,
-            },
-            {
-                $Type : 'UI.DataField',
-                Value : active,
-                Criticality : Criticality,
-                CriticalityRepresentation : #WithIcon
-            },
-        ],
-        HeaderInfo  : {
-            $Type : 'UI.HeaderInfoType',
-            TypeName : 'Trip Member',
-            TypeNamePlural : 'Trip Members',
-            Title : {
-                $Type : 'UI.DataField',
-                Value : memberId.memberName,
-            },
-            Description : {
-                $Type : 'UI.DataField',
-                Value : active
-            }  
-        },
-        Facets  : [
-            {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Trip Details',
-            Target : ![@UI.FieldGroup#MemberInfo]
-        },
-        ],
-        FieldGroup #MemberInfo : {
-            $Type : 'UI.FieldGroupType',
-            Data : [
+
+) {
+    tripno @(
+        title : 'Trip Number',
+        Common: {ValueList: {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'TripMaster',
+            SearchSupported: true,
+            Parameters     : [
                 {
-                    $Type : 'UI.DataField',
-                    Value : memberId.memberName,
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: tripno,
+                    ValueListProperty: 'tripno',
                 },
                 {
-                    $Type : 'UI.DataField',
-                    Value : memberId.phoneNo,
-                },
-                {
-                    $Type : 'UI.DataField',
-                    Value : memberId.email,
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: description,
+                    ValueListProperty: 'description',
                 },
             ]
+        }, }
+    );
+    year   @(
+        title : 'Year',
+        Common: {ValueList: {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'TripMaster',
+            SearchSupported: true,
+            Parameters     : [{
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: year,
+                ValueListProperty: 'year',
+            }, ]
         },
-    }
-);
 
+        }
+    )
+};
+
+
+annotate service.TripMembers with @(UI: {
+    LineItem              : [
+        {
+            $Type: 'UI.DataField',
+            Value: tripId.ID,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: tripId.tripno,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: memberId.ID,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: memberId.memberName,
+        },
+        {
+            $Type                    : 'UI.DataField',
+            Value                    : active,
+            Criticality              : Criticality,
+            CriticalityRepresentation: #WithIcon
+        },
+    ],
+    HeaderInfo            : {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : 'Trip Member',
+        TypeNamePlural: 'Trip Members',
+        Title         : {
+            $Type: 'UI.DataField',
+            Value: memberId.memberName,
+        },
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: active
+        }
+    },
+    Facets                : [{
+        $Type : 'UI.ReferenceFacet',
+        Label : 'Trip Details',
+        Target: ![@UI.FieldGroup#MemberInfo]
+    }, ],
+    FieldGroup #MemberInfo: {
+        $Type: 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type: 'UI.DataField',
+                Value: memberId.ID,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: memberId.memberName,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: memberId.phoneNo,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: memberId.email,
+            },
+        ]
+    },
+}) {
+
+
+    memberId @(
+        title : 'Member GUID',
+        Common: {ValueList: {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'MemberMaster',
+            SearchSupported: true,
+            Parameters     : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: memberId.ID,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: memberId.memberName,
+                    ValueListProperty: 'memberName',
+                },
+            ]
+
+        }, }
+    )
+};
+
+annotate service.MemberMaster with {
+    ID @(
+        title : 'Member GUID',
+        Common: {ValueList: {
+            $Type          : 'Common.ValueListType',
+            CollectionPath : 'MemberMaster',
+            SearchSupported: true,
+            Parameters     : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ID,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: memberName,
+                    ValueListProperty: 'memberName',
+                },
+            ]
+        }, }
+    )
+};

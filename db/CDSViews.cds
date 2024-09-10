@@ -7,7 +7,7 @@ context CDSViews {
             select from transaction.member_payment {
                 ID                  as ![PaymentGuid],
                 paymentNo           as ![PaymentNumber],
-                tripId.tripId       as ![TripNumber],
+                tripId.tripno       as ![TripNumber],
                 tripId.year         as ![Year],
                 tripId.month        as ![Month],
                 memberId.ID         as ![PaidById],
@@ -20,7 +20,7 @@ context CDSViews {
             select from transaction.member_expense {
                 ID                as ![PaymentGuid],
                 expenseNo         as ![PaymentNumber],
-                tripId.tripId     as ![TripNumber],
+                tripId.tripno     as ![TripNumber],
                 tripId.year       as ![Year],
                 tripId.month      as ![Month],
                 paidBy.ID         as ![PaidById],
@@ -36,7 +36,7 @@ context CDSViews {
         select from transaction.member_expense {
             ID                                             as ![PaymentGuid],
             expenseNo                                      as ![PaymentNumber],
-            tripId.tripId                                  as ![TripNumber],
+            tripId.tripno                                  as ![TripNumber],
             tripId.year                                    as ![Year],
             tripId.month                                   as ![Month],
             paidBy.ID                                      as ![PaidById],
@@ -58,7 +58,7 @@ context CDSViews {
         select from transaction.member_expense {
             ID                as ![PaymentGuid],
             expenseNo         as ![PaymentNumber],
-            tripId.tripId     as ![TripNumber],
+            tripId.tripno     as ![TripNumber],
             tripId.year       as ![Year],
             tripId.month      as ![Month],
             paidBy.ID         as ![PaidById],

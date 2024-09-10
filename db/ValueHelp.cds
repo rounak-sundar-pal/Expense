@@ -6,7 +6,7 @@ context ValueHelp {
     define view TripVH as
         select from master.trip_master {
             ID          as ![TripID],
-            tripId      as ![TripNumber],
+            tripno      as ![TripNumber],
             description as ![Description]
         }
 
@@ -21,7 +21,7 @@ context ValueHelp {
             ID         as ![MemberID],
             memberName as ![MemberName]
         }
-
+    @cds.odata.valuelist
     annotate MemberVH with {
         MemberID   @title: '{i18n>member_master_id}';
         MemberName @title: '{i18n>member_name}';

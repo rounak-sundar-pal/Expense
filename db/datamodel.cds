@@ -11,14 +11,14 @@ using {trippin.common} from './common';
 context master {
 
     entity trip_master : cuid, managed {
-        tripId         : String(10);
+        tripno         : String(10);
         year           : Integer;
         month          : Integer;
         description    : String(50);
         location       : String(50);
         itinerary      : LargeString;
         noOfMembers    : Integer;
-        trip_members   : Association to many trip_members
+        trip_members   : Composition of many trip_members
                              on trip_members.tripId = $self;
         member_payment : Association to many transaction.member_payment
                              on member_payment.tripId = $self;
@@ -28,7 +28,7 @@ context master {
 
     annotate trip_master with {
         ID          @title: '{i18n>trip_master_id}';
-        tripId      @title: '{i18n>trip_id}';
+        tripno      @title: '{i18n>trip_no}';
         year        @title: '{i18n>year}';
         month       @title: '{i18n>month}';
         description @title: '{i18n>description}';
